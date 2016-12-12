@@ -1,0 +1,23 @@
+{
+  "name": "cs4241-final-project",
+  "version": "0.1.0",
+  "description": "A Network Usage Visualizer aimed at exploring network usage from switches and routers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bot190/cs4241-Final-Project.git"
+  },
+  "keywords": [
+    "Network",
+    "monitoring"
+  ],
+  "author": "Ben  Beauregard, Jacob Link",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bot190/cs4241-Final-Project/issues"
+  },
+  "homepage": "https://github.com/bot190/cs4241-Final-Project#readme"
+}
