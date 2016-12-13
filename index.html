@@ -7,6 +7,7 @@
 <!--Import materialize.css-->
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css"
 	media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
 
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,29 +15,62 @@
 <title>Envision Network</title>
 </head>
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col s6 offset-s3">
-     		   <header>
-		            <h1>Envision Network</h1>
-		       </header>
-	       </div>
-        </div>
+<body class="blue-grey lighten-5">
+	<div class = "row blue-grey darken-2">
+		<div class="col s12">
+			<h1 class="center-align white-text">Envision Network</h1>	
+		</div>
+	</div>
+    <div class="container blue-grey lighten-1">
+		<div class = "row">
+			<div class="col s12 white-text">
+				<div class="section">
+					<h3 class="header">Envision your network usage like never before </h3>
+					<p class="caption">
+						With Envision Network, you can track all the internet usage,
+						both uploads and downloads, across any switch you own.
+					</p>
+					<p class="caption">
+						Find out more, or view a live demo below.
+					</p>
+				</div>
+			</div>
+		</div>
+		
    	    <div class="row">
-	        <div class="col s6">
-	            <div class="card-panel">
-                    <canvas id="myChart"></canvas>
-                    <!-- 
-                    <canvas id="myChart1"></canvas>
-					<canvas id="myChart2"></canvas>
-					<canvas id="myChart3"></canvas>
-					<canvas id="myChart4"></canvas>
-					-->
-	            </div>
-	        </div>
+			<div class="col s12">
+				<div class="card-panel blue-grey darken-3">
+					<div class="white-text">
+						<h4>Card Title</h4>
+						<p>Here's some graphs yo.</p>
+						<div class="row">
+							<div class="col s6">
+								<div class="card-panel">
+									<canvas id="myChart"></canvas>
+									<!-- 
+									<canvas id="myChart1"></canvas>
+									<canvas id="myChart2"></canvas>
+									<canvas id="myChart3"></canvas>
+									<canvas id="myChart4"></canvas>
+									-->
+								</div>
+							</div>
+							<div class="col s6">
+								<div class="card-panel">
+									<canvas class="BandwidthChart" id="chart1"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 	    </div>
-	    		   
+	    <div class="row">
+			<div class="col s12 white-text">
+				<p>Here's some more text</p>
+				<p>Wow would you take a gander at that isnt that great.</p>
+			</div>
+		</div>
 		<!--Import jQuery before materialize.js-->
         <script type="text/javascript"
             src="js/jquery-3.1.1.min.js"></script>
@@ -45,5 +79,21 @@
         <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 	</div>
+	<footer class="page-footer blue-grey darken-2">
+		<div class="container">
+			<div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Creators</h5>
+                <p class="grey-text text-lighten-4">Ben Beauregard | Jacob Link</p>
+              </div>
+            </div>
+        </div>
+		<div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+	</footer>
 </body>
 </html>
