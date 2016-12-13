@@ -19,8 +19,13 @@ app.get('/', function (req, res) {
 // Serve up libraries
 app.use(express.static('dist'));
 
+// Get data sources for every port:
+// Need to make this an array and put a for loop here for each port.
+var port1 = rand.newSource("Switch1", "1/g1");
+
+
 sendData = function(socket) {
-	var datapoints = rand.portDataPoints(true);
+	var datapoints = port1.portUpDown();
 	console.log(datapoints);
 	io.emit('portData',datapoints);
 }
