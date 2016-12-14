@@ -21,7 +21,7 @@
 			<div class="nav-wrapper blue-grey darken-2">
 			  <a href="/" class="brand-logo">Envision Network</a>
 			  <ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="/">Home</a></li>
+				<li class="active"><a href="/">Home</a></li>
 				<li><a href="html/login.html">Login</a></li>
 				<li><a href="html/settings.html">Settings</a></li>
 			  </ul>
@@ -29,29 +29,40 @@
 		</nav>
 	</header>
 	<main>
-		<div class="container blue-grey lighten-1">
-			<div class = "row">
-				<div class="col s12 white-text">
-					<div class="section">
-						<h3 class="header">Envision your network usage like never before </h3>
-						<p class="caption">
-							With Envision Network, you can track all the internet usage,
-							both uploads and downloads, across any switch you own.
-						</p>
-						<p class="caption">
-							Find out more, or view a live demo below.
-						</p>
-					</div>
-				</div>
+		<div class="container">
+			<div class="row">
 			</div>
 			<div class="row">
 				<div class="col s12">
-					<div class="card-panel blue-grey darken-3">
+					<div class="card-panel blue-grey darken-1">
 						<div class="white-text">
-							<h4>Card Title</h4>
-							<p>Here's some graphs yo.</p>
+							<h4>Envision your network usage like never before</h4>
+							<p>With Envision Network, you can track all the internet usage,
+							both uploads and downloads, across any switch you own.</p>
+							<p> Find out more, or view a live demo below. </p>
 							<div class="row">
-								<div class="col s6">
+								<div class="col s12 m6">
+									<a class="waves-effect waves-light btn" href="#modal1">Learn More</a>
+									<div id="modal1" class="modal">
+										<div class="modal-content blue-grey darken-1">
+										  <h4>About Envision Network</h4>
+										  <p>This site provides a front-end service to view network bandwidth
+											usage in a convenient format. In this demo site, you can create and add
+											switches with any number of ports, and the service will graph out usage 
+											on these ports. Currently we do not use actual netowork data, but the proper
+											data could be provided just as our test data is.</p>
+										</div>
+										<div class="modal-footer blue-grey darken-1">
+										  <a href="#!" class=" modal-action modal-close waves-effect waves-light btn-flat teal lighten-1 white-text">I gotcha</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="divider blue-grey lighten-5"></div>
+							<div class="row">
+							</div>
+							<div class="row">
+								<div class="col s12 m6">
 									<div class="card-panel">
 										<canvas id="myChart"></canvas>
 										<!-- 
@@ -62,7 +73,7 @@
 										-->
 									</div>
 								</div>
-								<div class="col s6">
+								<div class="col s12 m6">
 									<div class="card-panel">
 										<canvas class="BandwidthChart" id="chart1"></canvas>
 									</div>
@@ -70,12 +81,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s12 white-text">
-					<p>Here's some more text</p>
-					<p>Wow would you take a gander at that isnt that great.</p>
 				</div>
 			</div>
 		</div>
@@ -101,5 +106,11 @@
 	<script type="text/javascript" src="/js/Chart.bundle.min.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script type="text/javascript" src="/js/index.js"></script>
+	<script>
+		$(document).ready(function(){
+		// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+			$('.modal').modal();
+		});
+	</script>
 </body>
 </html>
