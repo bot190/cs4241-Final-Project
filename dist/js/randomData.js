@@ -37,7 +37,9 @@ exports.newSource = function (switchName, portName) {
 		dataPoints = {
 			labels: moment().toISOString(),
 			up: randomUp,
-			down: randomDown 
+			down: randomDown,
+			switchName: this.switchName,
+			portName: this.portName
 		}
 		dataSource.lastDataUp = randomUp;
 		dataSource.lastDataDown = randomDown;

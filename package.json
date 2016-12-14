@@ -21,8 +21,14 @@
   },
   "homepage": "https://github.com/bot190/cs4241-Final-Project#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "express-session": "^1.14.2",
     "moment": "^2.17.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "socket.io": "^1.7.2"
   }
 }

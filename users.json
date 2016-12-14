@@ -1,0 +1,1 @@
+[{ "id": 1, "username": "ben", "password": "secret", "switches": {"switchName": ["port1", "port2", "port3"], "switchName2": ["port1", "port2", "port3"] } } ]
