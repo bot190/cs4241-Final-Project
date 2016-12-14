@@ -57,19 +57,17 @@ var options = {
     }	
 }
 
-
 // We need to get a list of ports we can see, and then create charts for them
 // Once we've created charts, we should expect data to come in for each port
 var ctx = document.getElementById("myChart");
-var charts =[];
+var bandwidthCharts = document.getElementById("bandwidthCharts");
 
-
+var charts=[];
 charts.push (new Chart(ctx, {
     type: 'line',
     data: {datasets: bandwidthDatasets},
     options
 }))
-
 
 function updateCharts (chart,newdata) {
 	chart.data.labels.push(newdata.labels);

@@ -24,21 +24,21 @@ var interval;
 
 //Handle index.html
 app.get('/', function (req, res) {
-	res.render("index.html");
+	res.render("index.html", { user: req.user });
 });
 
 app.get('/settings',
 		require('connect-ensure-login').ensureLoggedIn(),
 		function(req, res){
-	res.render('settings.html');
+	res.render('settings.html', { user: req.user });
 });
 
 app.get('/login', function (req, res) {
-	res.render('login.html');
+	res.render('login.html', { user: req.user });
 });
 //Login Route
 app.post('/login', 
-		passport.authenticate('local', { failureRedirect: '/login.html' }),
+		passport.authenticate('local', { failureRedirect: '/login' }),
 		function(req, res) {
 	res.redirect('/');
 });
@@ -93,9 +93,16 @@ io.on('connection', function (socket){
 });
 
 sendData = function(socket) {
-	var datapoints = demo.portUpDown();
-	console.log(datapoints);
-	io.to('demo').emit('portData',datapoints);
+	// Send demo data
+	var datapoint = demo.portUpDown();
+	io.to('demo').emit('portData',datapoint);
+	
+	// Loop through each port and send new data
+	portMonitor.forEach(function (monitor) {
+		var datapoint = monitor.portUpDown();
+		var room = datapoint.switchName + datapoint.portName;
+		io.to(room).emit('portData', datapoint);
+	});
 }
 
 //Get data sources for every port:
