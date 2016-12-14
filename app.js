@@ -24,7 +24,6 @@ var interval;
 //Handle index.html
 app.get('/', function (req, res) {
 	res.sendFile("index.html", {"root": __dirname});
-	console.log(req.session);
 });
 
 app.get('/settings',
@@ -61,7 +60,26 @@ io.attach(http);
 //rooms for each port? If they aren't logged in, then join to demo room.
 //Somehow we need to send client available switches/ports. 
 io.on('connection', function (socket){
-	console.log(socket.handshake)
+	var session = socket.handshake.session;
+	
+	if (session.hasOwnProperty('passport')) {
+		var user = session.passport.user;
+		// Replace user ID with actual user
+		user = users[user-1];
+		socket.leave('demo');
+		for (var monitorSwitch in user.switches) {
+			if (user.switches.hasOwnProperty(monitorSwitch)) {
+				user.switches[monitorSwitch].forEach( function ( port) {
+					// Join a room for each  switch and port
+					console.log(monitorSwitch + port);
+					socket.join(monitorSwitch + port);
+				});
+			}
+		}
+		console.log(user)
+	} else {
+		socket.join('demo');
+	}
 	if (interval == null) {
 		interval = setInterval(sendData, 10000, socket);
 	}
@@ -71,26 +89,22 @@ io.on('connection', function (socket){
 sendData = function(socket) {
 	var datapoints = demo.portUpDown();
 	console.log(datapoints);
-	io.emit('portData',datapoints);
+	io.to('demo').emit('portData',datapoints);
 }
 
 //Get data sources for every port:
 //switches = [ {name: "Switch 1", ports: [ "1/g1", "1/g2", "1/g3" ] }, {name: "Switch 2", ports: [ "1/g1", "1/g2", "1/g3", "1/g4", "1/g5" ] }]
 var switches = [];
+var portMonitor=[];
 fs.readFile("switches.json", function (err, data) {
 	if (!err) {
-		switches = JSON.parse(data);	
+		switches = JSON.parse(data);
+		switches.forEach( function (monitorSwitch) {
+			monitorSwitch.ports.forEach( function (port) {
+				portMonitor.push(portInfo.newSource(monitorSwitch.name, port));
+			});
+		});
 	}
-});
-
-portMonitor=[]
-portRooms=[]
-switches.forEach( function (monitorSwitch) {
-	monitorSwitch.ports.forEach( function (port) {
-		portMonitor.push(portInfo.newSource(monitorSwitch.name, port));
-		// Create an array of socket.io "rooms" by concatenating the switch name with the port name.
-		portRooms.push(monitorSwitch + port);
-	});
 });
 
 var demo = portInfo.newSource("Demo Switch", "1");

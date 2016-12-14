@@ -1,1 +1,1 @@
-[{ "id": 1, "username": "ben", "password": "secret", "switches": {"switchName": ["port1", "port2", "port3"], "switchName2": ["port1", "port2", "port3"] } } ]
+[{ "id": 1, "username": "ben", "password": "secret", "switches": {"Switch 1": ["1/g1", "1/g2", "1/g3"], "switchName2": ["port1", "port2", "port3"] } } ]
