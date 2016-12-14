@@ -33,12 +33,12 @@
 			<div class="row">
 			</div>
 			<div class = "row">
-				<div class="col s8 m12 white-text">
+				<div class="col s12 m12 white-text">
 					<div class="card blue-grey darken-1">
 						<div class="card-content white-text">
 							<span class="card-title">Settings</span>
 							<div class="row">
-								<div class="col s11">
+								<div class="col s12">
 									<h5>Current Switches</h5>
 									<ul class="collection">
 										<li class="collection-item row blue-grey darken-1">
@@ -52,10 +52,10 @@
 												  On
 												</label>
 											</div>
-											<div class="col s2">
+											<div class="col s3">
 											</div>
-											<div class="col s2 float-right">
-												<a class="waves-effect waves-light btn-floating">X</a>
+											<div class="col s1 float-right">
+												<a class="waves-effect waves-light btn-floating" style="text-indent:15px;">X</a>
 											</div>
 										</li>
 										<li class="collection-item row blue-grey darken-1">
@@ -69,10 +69,10 @@
 												  On
 												</label>
 											</div>
-											<div class="col s2">
+											<div class="col s3">
 											</div>
-											<div class="col s2 float-right">
-												<a class="waves-effect waves-light btn-floating">X</a>
+											<div class="col s1 float-right">
+												<a class="waves-effect waves-light btn-floating" style="text-indent:15px;">X</a>
 											</div>
 										</li>
 									</ul>
@@ -81,7 +81,29 @@
 							<div class="row">
 								<div class="col s11">
 									<h5 style="margin-top:10px;">New Switches?</h5>
-									<a class="waves-effect waves-light btn-large" style="margin-left:25px;">Add New</a>
+									<a class="waves-effect waves-light btn" href="#modal1">Add New</a>
+									<div id="modal1" class="modal">
+										<div class="modal-content blue-grey darken-1">
+										  <h4>Adding a New Switch</h4>
+										  <div class="row">
+												<form class="col s12">
+												  <div class="row">
+													<div class="input-field col s6">
+													  <input id="switch_name" type="text">
+													  <label for="switch_name">Switch Name</label>
+													</div>
+													<div class="input-field col s6">
+													  <input id="ports" type="number">
+													  <label for="ports">Number of Ports</label>
+													</div>
+												  </div>
+												</form>
+											</div>
+										</div>
+										<div class="modal-footer blue-grey darken-1">
+										  <a href="#!" class=" modal-action modal-close waves-effect waves-light btn-flat teal lighten-1 white-text" id="create_new">Submit</a>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -114,6 +136,12 @@
 	<script>
 		$(document).ready(function() {
 			$('select').material_select();
+		});
+	</script>
+	<script>
+		$(document).ready(function(){
+		// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+			$('.modal').modal();
 		});
 	</script>
 </body>
