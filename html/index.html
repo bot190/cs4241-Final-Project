@@ -1,109 +1,57 @@
 <!DOCTYPE html>
-<html>
-<head>
-<!--Import Google Icon Font-->
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-<!--Import materialize.css-->
-<link type="text/css" rel="stylesheet" href="/css/materialize.min.css"
-	media="screen,projection" />
-<link type="text/css" rel="stylesheet" href="/css/style.css"/>
 
-<!--Let browser know website is optimized for mobile-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends "template.html" %}
 
-<title>Envision Network</title>
-</head>
-
-<body class="blue-grey lighten-5">
-	<header>
-		<nav>
-			<div class="nav-wrapper blue-grey darken-2">
-			  <a href="/" class="brand-logo">Envision Network</a>
-			  <ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li class="active"><a href="/">Home</a></li>
-				<li><a href="/login">Login</a></li>
-				<li><a href="/settings">Settings</a></li>
-			  </ul>
-			</div>
-		</nav>
-	</header>
-	<main>
-		<div class="container">
-			<div class="row">
-			</div>
-			<div class="row">
-				<div class="col s12">
-					<div class="card-panel blue-grey darken-1">
-						<div class="white-text">
-							<h4>Envision your network usage like never before</h4>
-							<p>With Envision Network, you can track all the internet usage,
-							both uploads and downloads, across any switch you own.</p>
-							<p> Find out more, or view a live demo below. </p>
-							<div class="row">
-								<div class="col s12 m6">
-									<a class="waves-effect waves-light btn" href="#modal1">Learn More</a>
-									<div id="modal1" class="modal">
-										<div class="modal-content blue-grey darken-1">
-										  <h4>About Envision Network</h4>
-										  <p>This site provides a front-end service to view network bandwidth
-											usage in a convenient format. In this demo site, you can create and add
-											switches with any number of ports, and the service will graph out usage 
-											on these ports. Currently we do not use actual netowork data, but the proper
-											data could be provided just as our test data is.</p>
-										</div>
-										<div class="modal-footer blue-grey darken-1">
-										  <a href="#!" class=" modal-action modal-close waves-effect waves-light btn-flat teal lighten-1 white-text">I gotcha</a>
-										</div>
+{% block main %}
+	<div class="container">
+		<div class="row">
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<div class="card-panel blue-grey darken-1">
+					<div class="white-text">
+						<h4>Envision your network usage like never before</h4>
+						<p>With Envision Network, you can track all the internet usage,
+						both uploads and downloads, across any switch you own.</p>
+						<p> Find out more, or view a live demo below. </p>
+						<div class="row">
+							<div class="col s12 m6">
+								<a class="waves-effect waves-light btn" href="#modal1">Learn More</a>
+								<div id="modal1" class="modal">
+									<div class="modal-content blue-grey darken-1">
+									  <h4>About Envision Network</h4>
+									  <p>This site provides a front-end service to view network bandwidth
+										usage in a convenient format. In this demo site, you can create and add
+										switches with any number of ports, and the service will graph out usage 
+										on these ports. Currently we do not use actual netowork data, but the proper
+										data could be provided just as our test data is.</p>
+									</div>
+									<div class="modal-footer blue-grey darken-1">
+									  <a href="#!" class=" modal-action modal-close waves-effect waves-light btn-flat teal lighten-1 white-text">I gotcha</a>
 									</div>
 								</div>
 							</div>
-							<div class="divider blue-grey lighten-5"></div>
-							<div class="row">
+						</div>
+						<div class="divider blue-grey lighten-5"></div>
+						<div class="row">
+						</div>
+						<div class="row">
+							<div class="col s12 m3 l3">
 							</div>
-							<div class="row">
-								<div class="col s12 m3 l3">
+							<div class="col s12 m6 l6 center-align">
+								<div class="card-panel">
+									<canvas id="myChart"></canvas>
 								</div>
-								<div class="col s12 m6 l6 center-align">
-									<div class="card-panel">
-										<canvas id="myChart"></canvas>
-									</div>
-								</div>
-								<div class="col s12 m3 l3">
-								</div>
+							</div>
+							<div class="col s12 m3 l3">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</main>
-	<footer class="page-footer blue-grey darken-2">
-		<div class="container">
-			<div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Creators</h5>
-                <p class="grey-text text-lighten-4">Ben Beauregard | Jacob Link</p>
-              </div>
-            </div>
-        </div>
-		<div class="footer-copyright">
-            <div class="container">
-				© 2016 Copyright Text
-            </div>
-          </div>
-	</footer>
-	<!--Import jQuery before materialize.js-->
-	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="/js/materialize.min.js"></script>
-	<script type="text/javascript" src="/js/Chart.bundle.min.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-	<script type="text/javascript" src="/js/index.js"></script>
+	</div>
 	<script>
-		$(document).ready(function(){
-		// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-			$('.modal').modal();
-		});
+		setPage('index');
 	</script>
-</body>
-</html>
+{% endblock %}
