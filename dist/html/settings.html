@@ -38,7 +38,47 @@
 						<div class="card-content white-text">
 							<span class="card-title">Settings</span>
 							<div class="row">
-							
+								<div class="col s11">
+									<h5>Current Switches</h5>
+									<ol>
+										<li class="row">
+											<p  style="margin-top:10px;" class="col s12">My Switch #1</p>
+											<p  style="margin-top:10px;" class="col s2">Monitor?</p>
+											<div class="switch col s4" style="margin-top:10px;">
+												<label>
+												  Off
+												  <input type="checkbox">
+												  <span class="lever"></span>
+												  On
+												</label>
+											</div>
+											<div class="col s4 float-right">
+												<a class="waves-effect waves-light btn-floating">X</a>
+											</div>
+										</li>
+										<li class="row">
+											<p  style="margin-top:10px;" class="col s12">My Switch #2</p>
+											<p  style="margin-top:10px;" class="col s2">Monitor?</p>
+											<div class="switch col s4" style="margin-top:10px;">
+												<label>
+												  Off
+												  <input type="checkbox">
+												  <span class="lever"></span>
+												  On
+												</label>
+											</div>
+											<div class="col s4 float-right">
+												<a class="waves-effect waves-light btn-floating">X</a>
+											</div>
+										</li>
+									</ol>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s11">
+									<h5 style="margin-top:10px;">New Switches?</h5>
+									<a class="waves-effect waves-light btn-large" style="margin-left:25px;">Add New</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -67,5 +107,10 @@
 	<script type="text/javascript" src="/js/Chart.bundle.min.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script type="text/javascript" src="/js/index.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('select').material_select();
+		});
+	</script>
 </body>
 </html>
