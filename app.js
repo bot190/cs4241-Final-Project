@@ -1,5 +1,6 @@
 //Include Modules
 var express = require('express');
+var nunjucks = require('nunjucks');
 var Server = require('socket.io');
 var path = require('path');
 var fs   = require('fs')
@@ -23,17 +24,17 @@ var interval;
 
 //Handle index.html
 app.get('/', function (req, res) {
-	res.sendFile("index.html", {"root": __dirname});
+	res.render("index.html");
 });
 
 app.get('/settings',
 		require('connect-ensure-login').ensureLoggedIn(),
 		function(req, res){
-	res.sendFile('html/settings.html', {"root": __dirname });
+	res.render('settings.html');
 });
 
 app.get('/login', function (req, res) {
-	res.sendFile("html/login.html", {"root": __dirname});
+	res.render('login.html');
 });
 //Login Route
 app.post('/login', 
@@ -47,6 +48,11 @@ app.post('/login',
 app.use(express.static('dist'));
 http = app.listen(process.env.PORT || port, function () {
 	console.log('listening on %d', (process.env.PORT || port));
+})
+
+nunjucks.configure('html', {
+	autoescape: true,
+	express: app
 })
 
 var io = new Server();
