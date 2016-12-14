@@ -98,7 +98,6 @@ var users = [];
 fs.readFile("users.json", function (err, data) {
 	if (!err) {
 		users = JSON.parse(data);
-		console.log(users);
 	}
 });
 
