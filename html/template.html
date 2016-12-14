@@ -28,7 +28,11 @@
 				  <a href="/" class="brand-logo">Envision Network</a>
 				  <ul id="nav-mobile" class="right hide-on-med-and-down">
 					<li id="index"><a href="/">Home</a></li>
-					<li id="login"><a href="/login">Login</a></li>
+					{% if user %}
+						<li id="logout"><a href="#">Logout</a></li>
+					{% else %}
+						<li id="login"><a href="/login">Login</a></li>
+					{% endif %}
 					<li id="settings"><a href="/settings">Settings</a></li>
 				  </ul>
 				</div>
