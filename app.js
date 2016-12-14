@@ -6,16 +6,16 @@ var fs   = require('fs')
 var portInfo = require('./dist/js/randomData.js');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
-
+var Session = require('express-session')
+var session = Session({secret: 'envisionetwork', resave: false, saveUninitialized: false})
 
 var app = express()
 //Configure express session and passport
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({secret: 'envisionetwork', resave: false, saveUninitialized: false}));
+app.use(session);
 app.use(passport.initialize());
-app.use(passport.session());
-var io = new Server();
+app.use(passport.session({secret:'envisionetwork', resave: false, saveUninitialized: false}));
 
 //Set a port for local use
 var port = 5000
@@ -24,6 +24,7 @@ var interval;
 //Handle index.html
 app.get('/', function (req, res) {
 	res.sendFile("index.html", {"root": __dirname});
+	console.log(req.session);
 });
 
 app.get('/settings',
@@ -45,12 +46,14 @@ app.post('/login',
 
 //Serve static files
 app.use(express.static('dist'));
-
-
-
 http = app.listen(process.env.PORT || port, function () {
 	console.log('listening on %d', (process.env.PORT || port));
 })
+
+var io = new Server();
+io.use(function (socket, next) {
+	session(socket.handshake, {}, next);
+});
 io.attach(http);
 
 //We've received a new browser connection
@@ -58,6 +61,7 @@ io.attach(http);
 //rooms for each port? If they aren't logged in, then join to demo room.
 //Somehow we need to send client available switches/ports. 
 io.on('connection', function (socket){
+	console.log(socket.handshake)
 	if (interval == null) {
 		interval = setInterval(sendData, 10000, socket);
 	}
