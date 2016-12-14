@@ -82,19 +82,26 @@
 								<div class="col s11">
 									<h5 style="margin-top:10px;">New Switches?</h5>
 									<a class="waves-effect waves-light btn" href="#modal1">Add New</a>
-									<div id="modal1" class="modal">
+									<div id="modal1" class="modal modal-fixed-footer">
 										<div class="modal-content blue-grey darken-1">
 										  <h4>Adding a New Switch</h4>
 										  <div class="row">
 												<form class="col s12">
 												  <div class="row">
-													<div class="input-field col s6">
+													<div class="input-field col s6" id="switch_name_input">
 													  <input id="switch_name" type="text">
 													  <label for="switch_name">Switch Name</label>
 													</div>
-													<div class="input-field col s6">
-													  <input id="ports" type="number">
-													  <label for="ports">Number of Ports</label>
+													<div class="input-field col s6" id="port_number_input">
+													  <select>
+														  <option value="" disabled selected>Select Number of Ports</option>
+														  <option value="1">5</option>
+														  <option value="2">8</option>
+														  <option value="3">16</option>
+														  <option value="3">24</option>
+														  <option value="3">48</option>
+													  </select>
+													  <label>Ports</label>
 													</div>
 												  </div>
 												</form>
