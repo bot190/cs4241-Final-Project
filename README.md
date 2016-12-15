@@ -17,8 +17,6 @@ Users can log in and logout, and are required to login to access anything beyond
 Users can add their own switches, with a variable number of ports, and set which ports they would like to see.
 Users can then view visualizations of these switch ports on the main page.
 
-[logo]: https://github.com/bot190/cs4241-Final-Project/raw/master/DemoPage.png "Demo page"
-
 ## Technology
 This site makes use of a number of different technologies to accomplish each part. It is an [Express](http://expressjs.com/) app running on Node.JS, as this provides a lot of functionality and flexibility in serving http requests. It also takes advantage of a number of middleware providers for various functionality, including POST data parsing, session management, and user login. User login services are provided using [Passport](http://passportjs.org/), which is a node module that can be connected to a large number of different backends. This makes it easy to switch out the authentication method in the app if desired.
 
