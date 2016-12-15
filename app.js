@@ -48,11 +48,52 @@ app.post('/login',
 });
 
 app.get('/logout',
-		  function(req, res){
-		    req.logout();
-		    res.redirect('/');
-		  });
+  function(req, res){
+    req.logout();
+    res.redirect('/');
+});
 
+app.post('/addSwitch',
+	function (req, res){
+		if (req.body.switch_name && req.body.portnumber) {
+			// Check if user is admin - NOT
+			// Grab portnumber, ports_allowed, switch_name
+			// SEARCH FOR SWITCH
+			var addSwitch = {
+				name: req.body.switch_name,
+				ports: req.body.portnumber
+			}
+			for (var port=1; port <= addSwitch.ports; port++) {
+				portMonitor.push(portInfo.newSource(addSwitch.name, port));
+			}
+			// Insert switch in list
+			switches.push(addSwitch);
+			fs.writeFile("switches.json", JSON.stringify(switches), (err) => {
+	            if (err) throw err;
+	        });
+			if (req.hasOwnProperty("user")) {
+				var allowedPorts=[];
+				console.log(req.body.ports_allowed)
+				for (var i=1;i<=req.body.portnumber; i++) {
+					if (req.body.ports_allowed.indexOf(i.toString()) >= 0) {
+						allowedPorts.push(true);
+					} else {
+						allowedPorts.push(false);
+					}
+				}
+				if (!req.user.switches[req.body.switch_name]) {
+					req.user.switches[req.body.switch_name] = allowedPorts;
+					// update users array
+					users[req.user.id-1] = req.user;
+					fs.writeFile("users.json", JSON.stringify(users), (err) => {
+	                    if (err) throw err;
+	                });
+				}
+			}
+		}
+		res.redirect('/settings');
+	}
+);
 
 //Serve static files
 app.use(express.static('dist'));
