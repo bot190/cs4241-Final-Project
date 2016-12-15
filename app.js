@@ -56,7 +56,8 @@ http = app.listen(process.env.PORT || port, function () {
 
 nunjucks.configure('html', {
 	autoescape: true,
-	express: app
+	express: app,
+	noCache: true
 })
 
 var io = new Server();
@@ -80,24 +81,23 @@ io.on('connection', function (socket){
 		for (var monitorSwitch in user.switches) {
 			if (user.switches.hasOwnProperty(monitorSwitch)) {
 				for (var port=1; port <= user.switches[monitorSwitch].length; port++) {
-					// Join a room for each  switch and port
-					console.log(monitorSwitch + port);
-					socket.join(monitorSwitch + port);
+					if (user.switches[monitorSwitch][port-1]) {
+						// Join a room for each  switch and port
+						socket.join(monitorSwitch + port);
+					}
 				}
 			}
 		}
-		console.log(user)
 	} else {
 		socket.join('demo');
 	}
 	if (interval == null) {
-		interval = setInterval(sendData, 10000, socket);
+		interval = setInterval(sendData, 3000, socket);
 	}
 	console.log("Connection");
 });
 
 sendData = function(socket) {
-	console.log("Sending data");
 	// Send demo data
 	var datapoint = demo.portUpDown();
 	io.to('demo').emit('portData',datapoint);
@@ -125,7 +125,6 @@ fs.readFile("switches.json", function (err, data) {
 });
 
 var demo = portInfo.newSource("Demo Switch", 1);
-
 
 //LOGIN HANDLING
 //Users are stored in a JSON file, with a "switches": {"switchName": [port1, port2, ..., portN], "switchName2": [port1, port2, ..., portN] }
