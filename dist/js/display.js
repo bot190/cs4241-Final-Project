@@ -36,25 +36,41 @@ bandwidthDatasets= [
 
 //Using these options for all of the bandwidth graphs so lets save them
 var options = {
+	legend: {
+		labels: {
+			boxWidth: 20,
+		}
+	},
 	scales: {
-        xAxes: [{
-            type: 'time',
-            time: {
-            	unit: 'second'
-            },
-            ticks: {
-		    	autoSkip: true,	
-		    	autoSkipPadding: 50,
-		    }
-        }],
+		xAxes: [{
+			type: 'time',
+			time: {
+				unit: 'second',
+				displayFormats: {
+					second: 'kk:mm:ss'
+				}
+			},
+			ticks: {
+				autoSkip: true,	
+				autoSkipPadding: 50,
+			}
+		}],
 		yAxes: [{
-		    type: 'logarithmic',
-		    position: 'left',
-		    ticks: {
-		    	autoSkip: true,			    	
-		    }
+			type: 'linear',
+			position: 'left',
+			ticks: {
+				autoSkip: true,
+				callback: function (value, index, values) {
+					if(value == 0) return '0 Byte';
+					var k = 1000; // or 1024 for binary
+					var dm = 3;
+					var sizes = ['Bytesps', 'KBps', 'MBps', 'GBps', 'TBps', 'PBps', 'EBps', 'ZBps', 'YBps'];
+					var i = Math.floor(Math.log(value) / Math.log(k));
+					return parseFloat((value / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+				}
+			}
 		}]
-    }	
+	}	
 }
 
 // We need to get a list of ports we can see, and then create charts for them

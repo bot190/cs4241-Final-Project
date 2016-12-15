@@ -14,7 +14,7 @@ exports.newSource = function (switchName, portName) {
 	dataSource.switchName = switchName;
 	dataSource.portName = portName;
 	
-	dataSource.maximum = 100000;
+	dataSource.maximum = 1000000;
 	dataSource.minimum = 0;
 	dataSource.lastDataUp = 0;
 	dataSource.lastDataDown = 0;
