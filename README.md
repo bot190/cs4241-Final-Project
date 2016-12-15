@@ -19,6 +19,7 @@ Users can then view visualizations of these switch ports on the main page.
 
 ## Usage
 The main page shows a demo, until a user logs in. There are currently two users available, and no way to add more:
+
 | Username      | Password  | 
 | ------------- |---------|
 | ben | secret |
