@@ -37,7 +37,7 @@
 									<div class="modal-content blue-grey darken-1">
 									  <h4>Adding a New Switch</h4>
 									  <div class="row">
-											<form class="col s12" action="/addSwitch" method="post">
+											<form class="col s12" action="/addSwitch" method="post" id="add_switch_form">
 											  <div class="row">
 												<div class="input-field col s6" id="switch_name_input">
 												  <input id="switch_name" type="text" name="switch_name">
@@ -63,7 +63,11 @@
 										</div>
 									</div>
 									<div class="modal-footer blue-grey darken-1">
-									  <a href="#!" class=" modal-action modal-close waves-effect waves-light btn-flat teal lighten-1 white-text" id="create_new">Submit</a>
+									  <div class="col s12 right-align">
+										  <button class="btn waves-effect waves-light" type="submit" name="submit" form="add_switch_form">Submit
+												<i class="material-icons right">send</i>
+										  </button>
+									  </div>
 									</div>
 								</div>
 							</div>
@@ -81,7 +85,7 @@
 		function makePortsAllowed(){
 			var portSelection = document.getElementById('ports_allowed');
 			var amount = document.getElementById("port_number_select").value;
-			var htmlstring = "<div class='input-field'>"
+			var htmlstring = "<div class='input-field' style='z-value:99999;'>"
 			htmlstring += "<select multiple name='ports_allowed'>"
 			htmlstring += "<option value='0' disabled selected>Select Number of Ports</option>"
 			for(i=1;i<=amount;i++){
