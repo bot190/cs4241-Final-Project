@@ -14,7 +14,8 @@
 							{% for port in ports %}
 								{% if port %}
 									<div class="col s12 m6 l6 center-align">
-										<div class="card-panel">
+										<div class="card-panel" title="Port #{{loop.index}}">
+											<h5 class="blue-grey-text text-darken-2 left-align"> Port #{{loop.index}}</h5>
 											<canvas class="bandwidthCharts" data-switchName="{{switch}}" data-portName="{{loop.index}}"></canvas>
 										</div>
 									</div>
@@ -31,4 +32,7 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		setPage('index');
+	</script>
 {% endblock %}
