@@ -18,18 +18,8 @@
 									{% for key, switch in user.switches %}
 										<li class="collection-item row blue-grey darken-1">
 											<p  style="margin-top:10px;" class="col s3">{{ key }}</p>
-											<p  style="margin-top:10px;" class="col s2">Monitor?</p>
-											<div class="switch col s3" style="margin-top:10px;">
-												<label>
-												  Off
-												  <input type="checkbox" id="monitor-{{switch}}">
-												  <span class="lever"></span>
-												  On
-												</label>
-											</div>
-											<div class="col s3">
-											</div>
-											<div class="col s1 float-right">
+
+											<div class="col s1 offset-s8 float-right">
 												<a id="delete-{{switch}}" class="waves-effect waves-light btn-floating" style="text-indent:15px;">X</a>
 											</div>
 										</li>
@@ -47,22 +37,26 @@
 									<div class="modal-content blue-grey darken-1">
 									  <h4>Adding a New Switch</h4>
 									  <div class="row">
-											<form class="col s12">
+											<form class="col s12" action="/addSwitch" method="post">
 											  <div class="row">
 												<div class="input-field col s6" id="switch_name_input">
-												  <input id="switch_name" type="text">
+												  <input id="switch_name" type="text" name="switch_name">
 												  <label for="switch_name">Switch Name</label>
 												</div>
 												<div class="input-field col s6" id="port_number_input">
-												  <select>
-													  <option value="" disabled selected>Select Number of Ports</option>
-													  <option value="1">5</option>
-													  <option value="2">8</option>
-													  <option value="3">16</option>
-													  <option value="3">24</option>
-													  <option value="3">48</option>
+												  <select onchange="makePortsAllowed()" id="port_number_select" name="portnumber">
+													  <option value="0" disabled selected>Select Number of Ports</option>
+													  <option value="5">5</option>
+													  <option value="8">8</option>
+													  <option value="16">16</option>
+													  <option value="24">24</option>
+													  <option value="48">48</option>
 												  </select>
 												  <label>Ports</label>
+												</div>
+												<div class="col s6" id="ports_allowed">
+												<div class="input-field">
+												</div>
 												</div>
 											  </div>
 											</form>
@@ -81,5 +75,23 @@
 	</div>
 	<script>
 		setPage('settings');
+	</script>
+	<script>
+		
+		function makePortsAllowed(){
+			var portSelection = document.getElementById('ports_allowed');
+			var amount = document.getElementById("port_number_select").value;
+			var htmlstring = "<div class='input-field'>"
+			htmlstring += "<select multiple name='ports_allowed'>"
+			htmlstring += "<option value='0' disabled selected>Select Number of Ports</option>"
+			for(i=1;i<=amount;i++){
+				htmlstring += "<option value='" + i + "'>" + i + "</option>"
+			}
+			htmlstring +=  "</select>"
+			htmlstring +=	"<label>Ports Allowed</label>"
+			htmlstring += "</div>"
+			portSelection.innerHTML = htmlstring;
+			$('select').material_select();
+		}
 	</script>
 {% endblock %}
