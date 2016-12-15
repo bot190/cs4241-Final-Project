@@ -95,6 +95,45 @@ app.post('/addSwitch',
 	}
 );
 
+app.post('/delSwitch',
+	function (req, res){
+		if (req.body.deleteSwitch) {
+		// Find switch and delete it, also need to search users of doom
+		for (var port=0; port < portMonitor.length; port++) {
+			if (portMonitor[port].switchName == req.body.deleteSwitch) {
+				// Remove port data gatherer
+				portMonitor.splice(port,1);
+			}
+		}
+		// Insert switch in list
+		switches.push(addSwitch);
+		fs.writeFile("switches.json", JSON.stringify(switches), (err) => {
+            if (err) throw err;
+        });
+		if (req.hasOwnProperty("user")) {
+			var allowedPorts=[];
+			console.log(req.body.ports_allowed)
+			for (var i=1;i<=req.body.portnumber; i++) {
+				if (req.body.ports_allowed.indexOf(i.toString()) >= 0) {
+					allowedPorts.push(true);
+				} else {
+					allowedPorts.push(false);
+				}
+			}
+			if (!req.user.switches[req.body.switch_name]) {
+				req.user.switches[req.body.switch_name] = allowedPorts;
+				// update users array
+				users[req.user.id-1] = req.user;
+				fs.writeFile("users.json", JSON.stringify(users), (err) => {
+                    if (err) throw err;
+                });
+			}
+		}
+	}
+	res.redirect('/settings');
+}
+);
+
 //Serve static files
 app.use(express.static('dist'));
 http = app.listen(process.env.PORT || port, function () {
