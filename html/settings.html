@@ -20,7 +20,7 @@
 											<p  style="margin-top:10px;" class="col s4">{{ switch }}</p>
 											<div class="col s4">
 												<div class="input-field" >
-													  <select multiple id="ports_allowed_edit" name="portsallowededit">
+													  <select multiple id="ports_allowed_edit_{{switch}}" name="portsallowededit" onchange="updatePorts({{switch}})">
 														  <option value="0" disabled selected>Ports allowed</option>
 														  {% for port in ports %}
 															{% if port %}
@@ -112,6 +112,19 @@
 			htmlstring += "</div>"
 			portSelection.innerHTML = htmlstring;
 			$('select').material_select();
+		}
+		
+		function updatePorts(switchname){
+			var val = document.getElementById("ports_allowed_edit_" + switchname).value;
+			var oReq = new XMLHttpRequest();
+			
+			//defining behavior for when the response comes back to us
+			oReq.addEventListener("load", reqListener);
+
+			oReq.open("POST", "/updatePorts", true);
+
+			// MAJOR KEY-- build form in XML http request SEND function
+			oReq.send(JSON.stringify({"name":switchname, "ports":val}));
 		}
 	</script>
 {% endblock %}
