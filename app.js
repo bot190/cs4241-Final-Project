@@ -1,5 +1,6 @@
 //Include Modules
 var express = require('express');
+var bodyparser = require('body-parser');
 var nunjucks = require('nunjucks');
 var Server = require('socket.io');
 var path = require('path');
@@ -13,7 +14,8 @@ var session = Session({secret: 'envisionetwork', resave: false, saveUninitialize
 var app = express()
 //Configure express session and passport
 app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json())
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session({secret:'envisionetwork', resave: false, saveUninitialized: false}));
@@ -95,6 +97,43 @@ app.post('/addSwitch',
 		res.redirect('/settings');
 	}
 );
+
+app.post('/updatePorts',
+		function (req, res){
+			if (req.body.name) {
+				// Grab portnumber, ports_allowed, switch_name
+				// SEARCH FOR SWITCH
+				var switchPorts=0;
+				for  (var i=0;  i<switches.length; i++) {
+					if (switches[i].name == req.body.name) {
+						switchPorts = switches[i].ports;
+						break;
+					}
+				}
+				if (req.hasOwnProperty("user")) {
+					var allowedPorts=[];
+					for (var i=1;i<=switchPorts; i++) {
+						if (req.body.ports.indexOf(i.toString()) >= 0) {
+							allowedPorts.push(true);
+						} else {
+							allowedPorts.push(false);
+						}
+					}
+					// Just override the previous value
+					if (req.user.switches[req.body.name]) {
+						req.user.switches[req.body.name] = allowedPorts;
+						// update users array
+						users[req.user.id-1] = req.user;
+						fs.writeFile("users.json", JSON.stringify(users), (err) => {
+		                    if (err) throw err;
+		                });
+					}
+				}
+			}
+			// We're done here, return success
+			res.sendStatus(200);
+		}
+	);
 
 app.post('/delSwitch',
 	function (req, res){
