@@ -47,6 +47,12 @@ app.post('/login',
 	res.redirect('/');
 });
 
+app.get('/logout',
+		  function(req, res){
+		    req.logout();
+		    res.redirect('/');
+		  });
+
 
 //Serve static files
 app.use(express.static('dist'));
@@ -68,12 +74,11 @@ io.attach(http);
 
 //We've received a new browser connection
 //Need to determine if user is logged in already, if so, join to appropriate
-//rooms for each port? If they aren't logged in, then join to demo room.
-//Somehow we need to send client available switches/ports. 
+//rooms for each port. If they aren't logged in, then join to demo room.
 io.on('connection', function (socket){
 	var session = socket.handshake.session;
 	
-	if (session.hasOwnProperty('passport')) {
+	if (session.hasOwnProperty('passport') && session.passport.hasOwnProperty('user')) {
 		var user = session.passport.user;
 		// Replace user ID with actual user
 		user = users[user-1];
@@ -91,6 +96,7 @@ io.on('connection', function (socket){
 	} else {
 		socket.join('demo');
 	}
+	// Start creating data!!
 	if (interval == null) {
 		interval = setInterval(sendData, 3000, socket);
 	}
