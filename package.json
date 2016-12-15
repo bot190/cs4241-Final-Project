@@ -4,7 +4,8 @@
   "description": "A Network Usage Visualizer aimed at exploring network usage from switches and routers.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "node app.js"
   },
   "repository": {
     "type": "git",
