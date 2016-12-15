@@ -1,1 +1,1 @@
-[ {"name": "Switch 1", "ports": [ "1/g1", "1/g2", "1/g3" ] }, {"name": "Switch 2", "ports": [ "1/g1", "1/g2", "1/g3", "1/g4", "1/g5" ] }]
+[ {"name": "Switch 1", "ports": 8 }, {"name": "Switch 2", "ports": 5 }]

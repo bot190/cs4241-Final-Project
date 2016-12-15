@@ -24,7 +24,11 @@ var interval;
 
 //Handle index.html
 app.get('/', function (req, res) {
-	res.render("index.html", { user: req.user });
+	if (req.user) {
+		res.render("display.html", {user: req.user});
+	} else {
+		res.render("index.html", { user: req.user });
+	}
 });
 
 app.get('/settings',
@@ -75,11 +79,11 @@ io.on('connection', function (socket){
 		socket.leave('demo');
 		for (var monitorSwitch in user.switches) {
 			if (user.switches.hasOwnProperty(monitorSwitch)) {
-				user.switches[monitorSwitch].forEach( function ( port) {
+				for (var port=1; port <= user.switches[monitorSwitch].length; port++) {
 					// Join a room for each  switch and port
 					console.log(monitorSwitch + port);
 					socket.join(monitorSwitch + port);
-				});
+				}
 			}
 		}
 		console.log(user)
@@ -93,10 +97,10 @@ io.on('connection', function (socket){
 });
 
 sendData = function(socket) {
+	console.log("Sending data");
 	// Send demo data
 	var datapoint = demo.portUpDown();
 	io.to('demo').emit('portData',datapoint);
-	
 	// Loop through each port and send new data
 	portMonitor.forEach(function (monitor) {
 		var datapoint = monitor.portUpDown();
@@ -106,21 +110,21 @@ sendData = function(socket) {
 }
 
 //Get data sources for every port:
-//switches = [ {name: "Switch 1", ports: [ "1/g1", "1/g2", "1/g3" ] }, {name: "Switch 2", ports: [ "1/g1", "1/g2", "1/g3", "1/g4", "1/g5" ] }]
+//switches = [ {name: "Switch 1", ports: 8}, {name: "Switch 2", ports: 5 }]
 var switches = [];
 var portMonitor=[];
 fs.readFile("switches.json", function (err, data) {
 	if (!err) {
 		switches = JSON.parse(data);
 		switches.forEach( function (monitorSwitch) {
-			monitorSwitch.ports.forEach( function (port) {
+			for (var port=1; port <= monitorSwitch.ports; port++) {
 				portMonitor.push(portInfo.newSource(monitorSwitch.name, port));
-			});
+			}
 		});
 	}
 });
 
-var demo = portInfo.newSource("Demo Switch", "1");
+var demo = portInfo.newSource("Demo Switch", 1);
 
 
 //LOGIN HANDLING

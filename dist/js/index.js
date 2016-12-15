@@ -60,14 +60,29 @@ var options = {
 // We need to get a list of ports we can see, and then create charts for them
 // Once we've created charts, we should expect data to come in for each port
 var ctx = document.getElementById("myChart");
-var bandwidthCharts = document.getElementById("bandwidthCharts");
+var bandwidthCharts = document.getElementsByClassName("bandwidthCharts");
+//I want to turn this array into an object with switch names as properties, and yeah...
 
+var switchCharts = {};
 var charts=[];
+for (var i=0; i< bandwidthCharts.length; i++) {
+	var switchName = bandwidthCharts[i].getAttribute("data-switchName");
+	if (!switchCharts.hasOwnProperty(switchName)) {
+		switchCharts[switchName]=[];
+	}
+	switchCharts[switchName].push(bandwidthCharts[i].getAttribute("data-portName"));
+	charts.push (new Chart(bandwidthCharts[i], {
+	    type: 'line',
+		data: {datasets: bandwidthDatasets},
+		options
+	}));
+}
+
 charts.push (new Chart(ctx, {
     type: 'line',
     data: {datasets: bandwidthDatasets},
     options
-}))
+}));
 
 function updateCharts (chart,newdata) {
 	chart.data.labels.push(newdata.labels);
@@ -84,6 +99,8 @@ function updateCharts (chart,newdata) {
 
 var socket = io.connect('http://localhost:5000');
 socket.on('portData', function (newdata) {
+	//var chart = switchCharts[newdata.switchName].indexOf(newdata.portName);
+	//chart = switchCharts
 	charts.forEach( function (chart) {
 		updateCharts(chart, newdata);
 	})
