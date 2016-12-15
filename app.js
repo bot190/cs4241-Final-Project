@@ -55,7 +55,8 @@ app.get('/logout',
 
 app.post('/addSwitch',
 	function (req, res){
-		if (req.body.switch_name && req.body.portnumber) {
+		if (req.body.switch_name 
+			&& req.body.portnumber) {
 			// Check if user is admin - NOT
 			// Grab portnumber, ports_allowed, switch_name
 			// SEARCH FOR SWITCH
@@ -105,25 +106,21 @@ app.post('/delSwitch',
 				portMonitor.splice(port,1);
 			}
 		}
-		// Insert switch in list
-		switches.push(addSwitch);
+		
+		for  (var i=0;  i<switches.length; i++) {
+			if (switches[i].name == req.body.deleteSwitch) {
+				switches.splice(i,1);
+				break;
+			}
+		}
+		// Update on disk list
 		fs.writeFile("switches.json", JSON.stringify(switches), (err) => {
             if (err) throw err;
         });
 		if (req.hasOwnProperty("user")) {
-			var allowedPorts=[];
-			console.log(req.body.ports_allowed)
-			for (var i=1;i<=req.body.portnumber; i++) {
-				if (req.body.ports_allowed.indexOf(i.toString()) >= 0) {
-					allowedPorts.push(true);
-				} else {
-					allowedPorts.push(false);
-				}
-			}
 			if (!req.user.switches[req.body.switch_name]) {
-				req.user.switches[req.body.switch_name] = allowedPorts;
 				// update users array
-				users[req.user.id-1] = req.user;
+				delete users[req.user.id-1].switches[req.body.deleteSwitch];
 				fs.writeFile("users.json", JSON.stringify(users), (err) => {
                     if (err) throw err;
                 });
@@ -197,6 +194,7 @@ sendData = function(socket) {
 
 //Get data sources for every port:
 //switches = [ {name: "Switch 1", ports: 8}, {name: "Switch 2", ports: 5 }]
+var demo = portInfo.newSource("Demo Switch", 1);
 var switches = [];
 var portMonitor=[];
 fs.readFile("switches.json", function (err, data) {
@@ -209,8 +207,6 @@ fs.readFile("switches.json", function (err, data) {
 		});
 	}
 });
-
-var demo = portInfo.newSource("Demo Switch", 1);
 
 //LOGIN HANDLING
 //Users are stored in a JSON file, with a "switches": {"switchName": [port1, port2, ..., portN], "switchName2": [port1, port2, ..., portN] }
